@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infinity Birthday | Bestie</title>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+:root {
+    --blue: #00d2ff;
+    --purple: #9d50bb;
+    --pink: #ff4da6;
+}
+
+body {
+    margin:0;
+    overflow:hidden;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(-45deg,#000,#1a0033,#001a33,#000);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+@keyframes gradientBG {
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+.page {
+    position:absolute;
+    width:100%;
+    height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    transition:1s;
+}
+
+.hidden {
+    opacity:0;
+    transform:translateY(-100%);
+    pointer-events:none;
+}
+
+.card {
+    background:rgba(10,10,20,0.85);
+    padding:40px;
+    border-radius:25px;
+    text-align:center;
+    backdrop-filter:blur(15px);
+    border:2px solid var(--blue);
+    box-shadow:0 0 40px rgba(0,210,255,0.4);
+    max-width:650px;
+}
+
+h1 {
+    color:white;
+    font-size:2.5em;
+}
+
+.clickable {
+    color:var(--blue);
+    cursor:pointer;
+    text-shadow:0 0 15px var(--blue);
+    transition:0.4s;
+}
+
+.clickable:hover {
+    transform:scale(1.2);
+    letter-spacing:3px;
+    color:white;
+}
+
+/* 💖 Falling Hearts */
+.heart {
+    position: fixed;
+    top: -10px;
+    color: #ff4da6;
+    font-size: 25px;
+    animation: fall linear forwards;
+    z-index: 1;
+}
+
+@keyframes fall {
+    0% { transform: translateY(0) rotate(0deg); opacity:1; }
+    100% { transform: translateY(100vh) rotate(360deg); opacity:0; }
+}
+
+.gallery img {
+    width:140px;
+    height:140px;
+    object-fit:cover;
+    border-radius:15px;
+    margin:10px;
+    box-shadow:0 0 20px rgba(255,255,255,0.3);
+    transition:0.4s;
+}
+
+.gallery img:hover {
+    transform:scale(1.1);
+}
+
+.letter {
+    color:#ddd;
+    font-size:1.1em;
+    line-height:1.7em;
+    margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 Background Music (Put birthday.mp3 in same folder) -->
+<audio id="bgMusic" loop>
+    <source src="c:\Users\bharath\Downloads\_Thozhi_Bgm_Hey_Sinamika_Dulquer_Salmaan_Malayalam_Ringtone_(by Fringster.com).mp3" type="audio/mpeg">
+</audio>
+
+<!-- PAGE 1 -->
+<div id="page1" class="page">
+    <div class="card">
+        <h1>Happy Birthday <br>
+            <span class="clickable" onclick="startCelebration()">HARINI PRIYA 💕</span>
+        </h1>
+        <p style="color:#ccc;">Click the name for a surprise ✨</p>
+    </div>
+</div>
+
+<!-- PAGE 2 -->
+<div id="page2" class="page hidden">
+    <div class="card">
+        <h1 style="color:var(--pink);">Happy Birthday Harini 💖</h1>
+
+        <div class="gallery">
+            <img src="c:\Users\bharath\OneDrive\Desktop\B 10\New folder\Mee\WhatsApp Image 2026-02-17 at 9.20.50 PM (1).jpeg">
+            <img src="c:\Users\bharath\OneDrive\Desktop\B 10\New folder\Mee\WhatsApp Image 2026-02-17 at 9.20.49 PM.jpeg">
+            <img src="c:\Users\bharath\OneDrive\Desktop\B 10\New folder\Mee\WhatsApp Image 2026-02-17 at 9.20.51 PM.jpeg">
+            <img src="c:\Users\bharath\OneDrive\Desktop\B 10\New folder\Mee\WhatsApp Image 2026-02-17 at 9.20.50 PM.jpeg">
+        </div>
+
+        <div class="letter">
+            My dearest bestie 💕,<br><br>
+            From silly laughs to deep talks at midnight, you have been my constant happiness.  
+            Life feels lighter, brighter, and more meaningful because you are in it.  
+            Thank you for being my safe place, my biggest supporter, and my forever partner in crime.  
+            I am so lucky to call you my best friend.  
+            May this year bring you success, love, peace, and everything your heart dreams of.  
+            No matter where life takes us, I will always stand beside you. 💫<br><br>
+            Happy Birthday once again, my forever bestie ❤️
+        </div>
+    </div>
+</div>
+
+<script>
+
+/* 💖 Continuous Heart Rain */
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 7000);
+}
+setInterval(createHeart, 300);
+
+/* 🎉 Full Screen Blast */
+function startCelebration() {
+
+    // Play Music
+    const music = document.getElementById("bgMusic");
+    music.volume = 0;
+    music.play();
+
+    // Smooth fade in
+    let fade = setInterval(() => {
+        if (music.volume < 1) {
+            music.volume += 0.05;
+        } else {
+            clearInterval(fade);
+        }
+    }, 200);
+
+    // Full screen confetti blast
+    const duration = 3 * 1000;
+    const end = Date.now() + duration;
+
+    (function frame() {
+        confetti({
+            particleCount: 8,
+            angle: 60,
+            spread: 70,
+            origin: { x: 0 }
+        });
+        confetti({
+            particleCount: 8,
+            angle: 120,
+            spread: 70,
+            origin: { x: 1 }
+        });
+
+        if (Date.now() < end) {
+            requestAnimationFrame(frame);
+        }
+    }());
+
+    setTimeout(()=>{
+        document.getElementById("page1").classList.add("hidden");
+        document.getElementById("page2").classList.remove("hidden");
+    },1000);
+}
+</script>
+
+</body>
+</html>
